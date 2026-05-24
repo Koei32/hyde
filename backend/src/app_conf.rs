@@ -11,6 +11,7 @@ use tracing::{info, trace};
 #[derive(Deserialize, Debug, Clone, Default, PartialEq, Eq)]
 pub struct AppConf {
     pub files: Files,
+    pub repo: Repo,
     pub discord: Discord,
     pub oauth: OAuth,
     pub database: Database,
@@ -21,7 +22,12 @@ pub struct Files {
     pub asset_path: String,
     pub docs_path: String,
     pub repo_path: String,
-    pub repo_url: String,
+}
+
+#[derive(Deserialize, Debug, Clone, Default, PartialEq, Eq)]
+pub struct Repo {
+    pub url: String,
+    pub default_branch: String,
 }
 
 #[derive(Deserialize, Debug, Clone, Default, PartialEq, Eq)]
@@ -78,7 +84,8 @@ macro_rules! impl_validate {
     };
 }
 
-impl_validate!(Files, asset_path, docs_path, repo_path, repo_url);
+impl_validate!(Files, asset_path, docs_path, repo_path);
+impl_validate!(Repo, url, default_branch);
 impl_validate!(Discord, admin_username);
 impl_validate!(DiscordOAuth, client_id, secret, url, token_url);
 impl_validate!(GitHubOAuth, client_id);

@@ -1,5 +1,6 @@
 //! Abstractions and interfaces over the git repository
 
+use crate::CONFIG;
 use color_eyre::eyre::{ContextCompat, Result, WrapErr, bail, ensure};
 use fs_err::{self as fs, remove_dir_all};
 use git2::{
@@ -241,7 +242,7 @@ impl Interface {
     #[tracing::instrument(skip_all)]
     pub fn reclone(&self) -> Result<()> {
         // First clone a repo into `repo__tmp`, open that, swap out
-        let repo_path = Path::new("./repo"); // TODO: Possibly implement this path into new config?
+        let repo_path = Path::new(&CONFIG.files.repo_path);
         let tmp_path = Path::new("./repo__tmp");
 
         // if a reclone was attempted but failed, repo__tmp might still exist
@@ -451,10 +452,9 @@ impl Interface {
     /// where `FETCH_HEAD` is a reference to the latest commit that has just been fetched from the remote repository.
     fn git_pull(repo: &Repository) -> Result<()> {
         // https://github.com/rust-lang/git2-rs/blob/master/examples/pull.rs
-        // TODO: configure branch via environment variables
         let fetch_head = Self::git_fetch(repo, None)?;
         info!("Successfully fetched latest changes, merging...");
-        Self::git_merge(repo, "master", fetch_head)?;
+        Self::git_merge(repo, &CONFIG.repo.default_branch, fetch_head)?;
         info!("Successfully merged latest changes");
         Ok(())
     }

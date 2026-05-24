@@ -139,7 +139,7 @@ pub async fn checkout_or_create_branch_handler(
 ) -> Result<(StatusCode, String), ApiError> {
     state
         .git
-        .checkout_or_create_branch("master", &branch_name)?;
+        .checkout_or_create_branch(&state.config.repo.default_branch, &branch_name)?;
 
     info!("Successfully checked out/created branch: {}", branch_name);
     Ok((

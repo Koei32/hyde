@@ -139,7 +139,7 @@ async fn main() -> Result<()> {
 /// Initialize an instance of [`AppState`]
 #[tracing::instrument]
 async fn init_state(cli_args: &Args) -> Result<AppState> {
-    let repo_url = CONFIG.files.repo_url.clone();
+    let repo_url = CONFIG.repo.url.clone();
     let repo_path = CONFIG.files.repo_path.clone();
     let docs_path = CONFIG.files.docs_path.clone();
     let asset_path = CONFIG.files.asset_path.clone();
@@ -160,7 +160,7 @@ async fn init_state(cli_args: &Args) -> Result<AppState> {
         oauth,
         reqwest_client: reqwest_client.clone(),
         gh_client: GitHubClient::new(
-            CONFIG.files.repo_url.clone(),
+            CONFIG.repo.url.clone(),
             reqwest_client.clone(),
             CONFIG.oauth.github.client_id.clone(),
         ),
