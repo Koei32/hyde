@@ -1,16 +1,19 @@
-| **[files]**           | **[discord]**             | **[oauth.discord]**  | **[oauth.github]**   | **[database]** |
-|-----------------------|---------------------------|----------------------|----------------------|----------------|
-| asset_path = `string` | admin_username = `string` | client_id = `string` | client_id = `string` | url = `string` |
-| docs_path = `string`  |                           | secret = `string`    |                      |                |
-| repo_path = `string`  |                           | url = `string`       |                      |                |
-| repo_url = `string`   |                           | token_url = `string` |                      |                |
+| **[files]**           | **[repo]**                | **[discord]**             | **[oauth.discord]**  | **[oauth.github]**   | **[database]** |
+|-----------------------|---------------------------|---------------------------|----------------------|----------------------|----------------|
+| asset_path = `string` | url = `string`            | admin_username = `string` | client_id = `string` | client_id = `string` | url = `string` |
+| docs_path = `string`  | default_branch = `string` |                           | secret = `string`    |                      |                |
+| repo_path = `string`  |                           |                           | url = `string`       |                      |                |
+|                       |                           |                           | token_url = `string` |                      |                |
 
 ## Descriptions
 ### Files
 - `asset_path`: Location of the markdown file relative to the root of the project
 - `docs_path`: Location of the assets files relative to the root of the project
 - `repo_path`: Location of where the jekyll repository will be pulled and used
-- `repo_url`: URL of the jekyll repository to use
+
+### Repo
+- `url`: URL of the jekyll repository to use
+- `default_branch`: Name of the default branch of the repository
 
 ### Discord
 - `admin_username`: Discord username of the administrator account
